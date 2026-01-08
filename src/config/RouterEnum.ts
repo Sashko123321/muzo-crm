@@ -1,19 +1,19 @@
 
 export const RouterEnum = {
-    DASHBOARD:'/muzo-crm/dashboard',
-    ANALYTICS:'/muzo-crm/analytics',
-    CARRIERS:'/muzo-crm/table/carriers',
-    CARGOS:'/muzo-crm/table/cargos',
-    ORDERS:'/muzo-crm/table/orders',
-    PROFILE:'/muzo-crm/profile',
-    LOGIN:'/muzo-crm/auth/login',
-    REGISTER:'/muzo-crm/auth/register',
-    CARRIER:'/muzo-crm/carrier/:id',
-    CARGO:'/muzo-crm/cargo/:id',
-    MAIN:'/muzo-crm/',
-    MEMBERS:'/muzo-crm/members',
-    PAYMENTS:'/muzo-crm/payments',
-    CLIENTS:'/muzo-crm/clients',
+    DASHBOARD:'/dashboard',
+    ANALYTICS:'/analytics',
+    CARRIERS:'/table/carriers',
+    CARGOS:'/table/cargos',
+    ORDERS:'/table/orders',
+    PROFILE:'/profile',
+    LOGIN:'/auth/login',
+    REGISTER:'/auth/register',
+    CARRIER:'/carrier/:id',
+    CARGO:'/cargo/:id',
+    MAIN:'/',
+    MEMBERS:'/members',
+    PAYMENTS:'/payments',
+    CLIENTS:'/clients',
 }
 
 export type RouterEnum = typeof RouterEnum[keyof typeof RouterEnum];

@@ -27,7 +27,7 @@ const Main = () => {
                 </p>
 
                 <div className="text-right">
-                    <Link to="/dashboard">
+                    <Link to="/muzo-crm/dashboard">
                         <button className="px-4 py-2 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition">
                             Увійти в профіль
                         </button>

@@ -6,8 +6,9 @@ import {BrowserRouter} from "react-router";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="/muzo-crm">
             <App />
       </BrowserRouter>
   </StrictMode>,
 )
+
