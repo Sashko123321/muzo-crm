@@ -17,7 +17,7 @@ const MainLayout = ({ getProfile }: MainLayoutProps) => {
 
     const location = useLocation();
     const currentPageName =
-        location.pathname.split("/")[1] || "Dashboard";
+        location.pathname.split("/muzo-crm/")[1] || "Dashboard";
 
     // Оновлюємо профіль завжди при рендері MainLayout
     useEffect(() => {
