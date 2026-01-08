@@ -6,7 +6,7 @@ export const RouterEnum = {
     CARGOS: '/table/cargos',
     ORDERS: '/table/orders',
     PROFILE: '/profile',
-    LOGIN: '/muzo-crm/auth/login',
+    LOGIN: '/auth/login',
     REGISTER: '/auth/register',
     CARRIER: '/carrier/:id',
     CARGO: '/cargo/:id',
