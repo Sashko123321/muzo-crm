@@ -116,7 +116,7 @@ instance.interceptors.response.use(
         }
 
         store.remove("auth-storage-todo");
-        window.location.href = RouterEnum.LOGIN;
+        // window.location.href = RouterEnum.LOGIN;
         return Promise.reject(error);
     }
 );
