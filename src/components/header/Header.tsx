@@ -9,6 +9,7 @@ interface HeaderProps {
     title: string;
     user?: UserResponse | null;
 }
+const BASENAME = "/muzo-crm";
 
 const Header = ({ onOpenSidebar, title, user }: HeaderProps) => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -18,7 +19,8 @@ const Header = ({ onOpenSidebar, title, user }: HeaderProps) => {
         store.remove("auth-storage-todo");
         store.remove("profile");
 
-        window.location.href = RouterEnum.LOGIN;
+        window.location.href = BASENAME + RouterEnum.LOGIN;
+
     };
 
     // Закриваємо dropdown при кліку поза ним
