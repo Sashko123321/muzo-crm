@@ -4,10 +4,10 @@ import axios, {
 } from "axios";
 import store from "store2";
 import {API_URL, postAccessTokenUrl} from "../../config/api.config.ts";
-import {RouterEnum} from "../../config/RouterEnum.ts";
+// import {RouterEnum} from "../../config/RouterEnum.ts";
 // import {RouterEnum} from "../../config/RouterEnum.ts";
 
-const BASENAME = "/muzo-crm";
+// const BASENAME = "/muzo-crm";
 // ===== Функція оновлення токена через refreshToken =====
 export const getAccessTokenByRefresh = async (): Promise<string | null> => {
     const authStorage = store.get("auth-storage-todo");
@@ -53,7 +53,7 @@ instance.interceptors.request.use(
 
         if (!token && !isAuthEndpoint) {
             store.remove("auth-storage-todo");
-            window.location.href = BASENAME + RouterEnum.LOGIN;
+            // window.location.href = BASENAME + RouterEnum.LOGIN;
             return Promise.reject(
                 new Error("No token, redirecting to login")
             );
@@ -116,7 +116,7 @@ instance.interceptors.response.use(
         }
 
         store.remove("auth-storage-todo");
-        window.location.href = BASENAME + RouterEnum.LOGIN;
+        // window.location.href = BASENAME + RouterEnum.LOGIN;
         return Promise.reject(error);
     }
 );
