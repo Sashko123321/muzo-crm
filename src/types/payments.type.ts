@@ -14,9 +14,9 @@ export type UpdatePaymentPercentageRequest = {
 };
 
 export type OrderPaymentResponse = {
-    id: number;                   // <-- PaymentId
-    orderId: number;               // ID замовлення
-    userId: number;                // ID користувача
+    id: number;
+    orderId: number;
+    userId: number;
     userName: string;
     clientName: string;
     carrierId: number;

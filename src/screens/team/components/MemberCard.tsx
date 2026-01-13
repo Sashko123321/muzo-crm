@@ -9,7 +9,6 @@ import { usePayments } from "../../../hooks/payment/usePayments.ts";
 import type { RoleType } from "../../../types/user.type.ts";
 import type { Currency } from "../../../types/cargo.type.ts";
 
-/* ---------------------------------- utils --------------------------------- */
 
 const getInitials = (firstName?: string, lastName?: string): string => {
     const name = `${firstName ?? ""} ${lastName ?? ""}`.trim();
@@ -29,7 +28,6 @@ const currencySymbols: Record<Currency, string> = {
     UAH: "₴",
 };
 
-/* ---------------------------------- types --------------------------------- */
 
 interface TeamMember {
     id: number;
@@ -45,13 +43,10 @@ interface TeamMemberCardProps {
     onViewDetails: (member: TeamMember) => void;
 }
 
-/* -------------------------------- component -------------------------------- */
 
 export const MemberCard: FC<TeamMemberCardProps> = ({ member, onViewDetails }) => {
     const { getUserTotalPayments } = usePayments();
-    // const { getOrderStats } = useStatistics();
 
-    // const [dealsClosed, setDealsClosed] = useState(0);
     const [revenueByCurrency, setRevenueByCurrency] = useState<Record<Currency, number>>({
         USD: 0,
         EUR: 0,
@@ -62,8 +57,6 @@ export const MemberCard: FC<TeamMemberCardProps> = ({ member, onViewDetails }) =
 
     useEffect(() => {
         const loadStats = async () => {
-            // const orderStats = await getOrderStats();
-            // setDealsClosed(orderStats?.completedCount ?? 0);
 
             const payments = await getUserTotalPayments(member.id, "Paid");
             setRevenueByCurrency(prev => ({
@@ -77,7 +70,6 @@ export const MemberCard: FC<TeamMemberCardProps> = ({ member, onViewDetails }) =
 
     return (
         <div className="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col">
-            {/* Header */}
             <div className="flex items-center gap-4">
                 <div className="h-14 w-14 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-semibold text-lg shrink-0">
                     {getInitials(member.firstName, member.lastName)}
@@ -103,7 +95,6 @@ export const MemberCard: FC<TeamMemberCardProps> = ({ member, onViewDetails }) =
                 </div>
             </div>
 
-            {/* Revenue */}
             <div className="mt-4">
                 <div className="rounded-xl bg-slate-50 p-4 space-y-3">
                     <p className="text-xs text-slate-500 text-center uppercase tracking-wide">
@@ -137,7 +128,6 @@ export const MemberCard: FC<TeamMemberCardProps> = ({ member, onViewDetails }) =
                 </div>
             </div>
 
-            {/* Footer */}
             <div className="mt-auto pt-4 border-t border-slate-100 space-y-3">
                 {member.phoneNumber && (
                     <div className="flex items-center justify-center gap-2 text-sm text-slate-600">

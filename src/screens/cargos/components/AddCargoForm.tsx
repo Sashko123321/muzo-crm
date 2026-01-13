@@ -1,10 +1,12 @@
-import { type FC, type ReactNode, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useCargo } from "../../../hooks/cargo/useCargo.ts";
 import { useClient } from "../../../hooks/client/useClient.ts";
 import type { CargoResponse, CreateCargoRequest, Currency, DirectionForward } from "../../../types/cargo.type.ts";
 import {type ClientResponse, isDuplicateResponse} from "../../../types/client.type.ts";
 import AddModal from "../../../components/shered/AddModal.tsx";
 import AddClientForm from "../../clients/components/AddClientModal.tsx";
+import Field from "../../../components/field/Field.tsx";
+import Section from "../../../components/section/Section.tsx";
 
 interface AddCargoFormProps {
     initialData?: CreateCargoRequest | CargoResponse;
@@ -23,7 +25,7 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
         description: initialData?.description || "",
         weightKg: initialData?.weightKg || 0,
         dimensions: initialData?.dimensions || "",
-        clientId: (initialData as CreateCargoRequest)?.clientId || 0, // ✅ латинська c
+        clientId: (initialData as CreateCargoRequest)?.clientId || 0,
         fromLocation: initialData?.fromLocation || "",
         toLocation: initialData?.toLocation || "",
         availableFrom: initialData?.availableFrom || new Date().toISOString().split("T")[0],
@@ -36,7 +38,6 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
     });
 
 
-    // Завантажуємо список клієнтів
     useEffect(() => {
         (async () => {
             const data = await getClients({ limit: 100 });
@@ -60,19 +61,12 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
         });
     };
 
-    // // Додаємо нового клієнта в список після створення
-    // const handleAddClient = (newClient: ClientResponse) => {
-    //     setClients(prev => [...prev, newClient]);
-    //     setForm(prev => ({ ...prev, clientId: newClient.id })); // ✅ виправлено clientId
-    //     setShowAddClientModal(false);
-    // };
 
 
     const inputClass = "w-full px-3 py-2 rounded-xl border bg-gray-100 border-gray-300 text-sm";
 
     return (
         <div className="space-y-8">
-            {/* Загальна інформація */}
             <Section title="Загальна Інформація" color="bg-blue-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <Field label="Опис" value={form.description} onChange={(v) => handleChange("description", v)} inputClass={inputClass} />
@@ -99,7 +93,6 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
                 </div>
             </Section>
 
-            {/* Дати завантаження */}
             <Section title="Дати завантаження" color="bg-yellow-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <Field label="Завантаження з" type="date" value={form.availableFrom} onChange={(v) => handleChange("availableFrom", v)} inputClass={inputClass} />
@@ -107,7 +100,6 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
                 </div>
             </Section>
 
-            {/* Клієнт */}
             <Section title="Клієнт" color="bg-green-500">
                 <div className="flex items-center gap-2 mt-2">
                     <select value={form.clientId} onChange={(e) => handleChange("clientId", Number(e.target.value))}>
@@ -123,7 +115,6 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
                 </div>
             </Section>
 
-            {/* Маршрут */}
             <Section title="Маршрут" color="bg-purple-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <Field label="Звідки" value={form.fromLocation ?? ""} onChange={(v) => handleChange("fromLocation", v)} inputClass={inputClass} />
@@ -131,7 +122,6 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
                 </div>
             </Section>
 
-            {/* Нотатки */}
             <Section title="Нотатки" color="bg-gray-500">
                 <textarea value={form.notes} onChange={(e) => handleChange("notes", e.target.value)} className="w-full px-3 py-2 rounded-xl border bg-gray-100 border-gray-300 text-sm resize-none" placeholder="Додаткові нотатки..." rows={4} />
             </Section>
@@ -154,7 +144,7 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
                             if (!client) return;
 
                             if (isDuplicateResponse(client)) {
-                                alert(client.message); // показуємо повідомлення про дубль
+                                alert(client.message);
                                 return;
                             }
 
@@ -173,32 +163,4 @@ const AddCargoForm = ({ initialData, submitText, onSubmit, onCancel }: AddCargoF
 
 export default AddCargoForm;
 
-/* Section & Field залишаються без змін */
-interface SectionProps {
-    title: string;
-    color: string;
-    children: ReactNode;
-}
-const Section: FC<SectionProps> = ({ title, color, children }) => (
-    <div>
-        <div className="flex items-center gap-3 mb-3">
-            <div className={`w-1.5 h-6 rounded-full ${color}`} />
-            <h3 className="text-lg font-medium">{title}</h3>
-        </div>
-        {children}
-    </div>
-);
 
-interface FieldProps {
-    label: string;
-    value: string | number;
-    onChange: (value: string) => void;
-    inputClass: string;
-    type?: React.HTMLInputTypeAttribute;
-}
-const Field: FC<FieldProps> = ({ label, value, onChange, inputClass, type = "text" }) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium opacity-80">{label}</label>
-        <input type={type} value={value} onChange={(e) => onChange(e.target.value)} className={inputClass} />
-    </div>
-);

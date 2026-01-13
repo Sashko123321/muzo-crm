@@ -1,5 +1,11 @@
+import type { FC } from "react";
+import { useState } from "react";
 import type { ClientResponse, CreateClientRequest } from "../../../types/client.type";
-import { type FC, useState } from "react";
+
+import TextAreaField from "../../../components/field/TextAreaField.tsx";
+import SelectField from "../../../components/field/SelectField.tsx";
+import Section from "../../../components/section/Section.tsx";
+import Field from "../../../components/field/Field.tsx";
 
 interface AddClientFormProps {
     initialData?: ClientResponse;
@@ -29,7 +35,7 @@ const AddClientForm: FC<AddClientFormProps> = ({
         field: K,
         value: CreateClientRequest[K]
     ) => {
-        setForm((prev) => ({ ...prev, [field]: value }));
+        setForm(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSubmit = async () => {
@@ -45,64 +51,67 @@ const AddClientForm: FC<AddClientFormProps> = ({
         "w-full px-3 py-2 rounded-xl border bg-gray-100 border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500";
 
     return (
-        <div className="space-y-4">
-            {/* Імʼя */}
-            <Field
-                label="Імʼя"
-                value={form.name}
-                onChange={(v) => handleChange("name", v)}
-                inputClass={inputClass}
-            />
+        <div className="space-y-6">
+            <Section title="Основна інформація" color="bg-indigo-500">
+                <div className="space-y-4">
+                    <Field
+                        label="Імʼя"
+                        value={form.name}
+                        onChange={(v) => handleChange("name", v)}
+                        inputClass={inputClass}
+                    />
 
-            {/* Тип клієнта */}
-            <SelectField
-                label="Тип клієнта"
-                value={form.type}
-                onChange={(v) => handleChange("type", v)}
-                options={[
-                    { value: "Individual", label: "Фізична особа" },
-                    { value: "Company", label: "Компанія" },
-                    { value: "PartnerCompany", label: "Партнерська компанія" },
-                ]}
-            />
+                    <SelectField
+                        label="Тип клієнта"
+                        value={form.type}
+                        onChange={(v) => handleChange("type", v)}
+                        options={[
+                            { value: "Individual", label: "Фізична особа" },
+                            { value: "Company", label: "Компанія" },
+                            { value: "PartnerCompany", label: "Партнерська компанія" },
+                        ]}
+                    />
 
-            {/* Статус */}
-            <SelectField
-                label="Статус"
-                value={form.status}
-                onChange={(v) => handleChange("status", v)}
-                options={[
-                    { value: "Thinking", label: "Думають" },
-                    { value: "Supported", label: "Співпрацюємо" },
-                    { value: "Declined", label: "Не співпрацюємо" },
-                ]}
-            />
+                    <SelectField
+                        label="Статус"
+                        value={form.status}
+                        onChange={(v) => handleChange("status", v)}
+                        options={[
+                            { value: "Thinking", label: "Думають" },
+                            { value: "Supported", label: "Співпрацюємо" },
+                            { value: "Declined", label: "Не співпрацюємо" },
+                        ]}
+                    />
+                </div>
+            </Section>
 
-            {/* Телефон */}
-            <Field
-                label="Телефон"
-                value={form.phone || ""}
-                onChange={(v) => handleChange("phone", v)}
-                inputClass={inputClass}
-            />
+            <Section title="Контактні дані" color="bg-emerald-500">
+                <div className="space-y-4">
+                    <Field
+                        label="Телефон"
+                        value={form.phone || ""}
+                        onChange={(v) => handleChange("phone", v)}
+                        inputClass={inputClass}
+                    />
 
-            {/* Email */}
-            <Field
-                label="Email"
-                value={form.email || ""}
-                onChange={(v) => handleChange("email", v)}
-                inputClass={inputClass}
-                type="email"
-            />
+                    <Field
+                        label="Email"
+                        value={form.email || ""}
+                        onChange={(v) => handleChange("email", v)}
+                        inputClass={inputClass}
+                        type="email"
+                    />
+                </div>
+            </Section>
 
-            {/* Опис */}
-            <TextAreaField
-                label="Опис"
-                value={form.description || ""}
-                onChange={(v) => handleChange("description", v)}
-            />
+            <Section title="Додатково" color="bg-slate-400">
+                <TextAreaField
+                    label="Опис"
+                    value={form.description || ""}
+                    onChange={(v) => handleChange("description", v)}
+                />
+            </Section>
 
-            {/* Actions */}
             <div className="flex gap-2 pt-2">
                 {onCancel && (
                     <button
@@ -125,83 +134,3 @@ const AddClientForm: FC<AddClientFormProps> = ({
 };
 
 export default AddClientForm;
-
-
-
-interface FieldProps {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-    inputClass: string;
-    type?: React.HTMLInputTypeAttribute;
-}
-
-const Field: FC<FieldProps> = ({
-                                   label,
-                                   value,
-                                   onChange,
-                                   inputClass,
-                                   type = "text",
-                               }) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-slate-700">{label}</label>
-        <input
-            type={type}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            className={inputClass}
-        />
-    </div>
-);
-
-interface SelectFieldProps<T extends string> {
-    label: string;
-    value: T;
-    onChange: (value: T) => void;
-    options: { value: T; label: string }[];
-}
-
-const SelectField = <T extends string>({
-                                           label,
-                                           value,
-                                           onChange,
-                                           options,
-                                       }: SelectFieldProps<T>) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-slate-700">{label}</label>
-        <select
-            value={value}
-            onChange={(e) => onChange(e.target.value as T)}
-            className="w-full px-3 py-2 rounded-xl border bg-gray-100 border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-            {options.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                </option>
-            ))}
-        </select>
-    </div>
-);
-
-
-interface TextAreaFieldProps {
-    label: string;
-    value: string;
-    onChange: (value: string) => void;
-}
-
-const TextAreaField: FC<TextAreaFieldProps> = ({
-                                                   label,
-                                                   value,
-                                                   onChange,
-                                               }) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-slate-700">{label}</label>
-        <textarea
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            rows={4}
-            className="w-full px-3 py-2 rounded-xl border bg-gray-100 border-gray-300 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-    </div>
-);

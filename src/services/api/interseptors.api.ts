@@ -7,7 +7,6 @@ import {API_URL, postAccessTokenUrl} from "../../config/api.config.ts";
 import {RouterEnum} from "../../config/RouterEnum.ts";
 
 const BASENAME = "/muzo-crm";
-// ===== Функція оновлення токена через refreshToken =====
 export const getAccessTokenByRefresh = async (): Promise<string | null> => {
     const authStorage = store.get("auth-storage-todo");
     const refreshToken = authStorage?.state?.refreshToken;
@@ -16,7 +15,7 @@ export const getAccessTokenByRefresh = async (): Promise<string | null> => {
     try {
         const response = await axios.post(
             API_URL + postAccessTokenUrl(),
-            {refreshToken}, // тепер бек чекає { refreshToken }
+            {refreshToken},
             {headers: {"Content-Type": "application/json"}}
         );
 
@@ -33,7 +32,6 @@ export const getAccessTokenByRefresh = async (): Promise<string | null> => {
     }
 };
 
-// ===== Axios instance =====
 const instance = axios.create({
     baseURL: API_URL,
     headers: {"Content-Type": "application/json"},

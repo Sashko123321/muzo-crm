@@ -62,7 +62,6 @@ const Members = () => {
         inactive: "inactive",
     } as const;
 
-    // ===================== FETCH USERS =====================
     useEffect(() => {
         (async () => {
             const res = await getAll({ limit: 50, offset: 0 });
@@ -70,7 +69,6 @@ const Members = () => {
         })();
     }, [getAll]);
 
-    // ===================== FETCH REVENUE =====================
     useEffect(() => {
         if (!selectedMember) return;
 
@@ -94,7 +92,6 @@ const Members = () => {
 
     return (
         <main className="p-4 w-full">
-            {/* ===================== HEADER ===================== */}
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">Команда користувачів</h1>
 
@@ -106,7 +103,6 @@ const Members = () => {
                 </button>
             </div>
 
-            {/* ===================== USERS GRID ===================== */}
             {loadingUsers ? (
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                     {[1, 2, 3, 4, 5, 6].map(i => (
@@ -124,7 +120,6 @@ const Members = () => {
                 </div>
             )}
 
-            {/* ===================== ADD USER MODAL ===================== */}
             {showAddModal && (
                 <AddModal
                     open={showAddModal}
@@ -145,7 +140,6 @@ const Members = () => {
                 </AddModal>
             )}
 
-            {/* ===================== DETAIL MODAL ===================== */}
             <CardModal
                 open={!!selectedMember}
                 onClose={() => {

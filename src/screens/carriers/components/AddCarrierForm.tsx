@@ -1,6 +1,9 @@
-import { type FC, type ReactNode, useState } from "react";
-import type { CarrierResponse, CreateCarrierRequest, DirectionForward } from "../../../types/carrier.type.ts";
+import { type FC, useState } from "react";
+import type { CarrierResponse, CreateCarrierRequest} from "../../../types/carrier.type.ts";
 import { useCarrier } from "../../../hooks/carrier/useCarrier.ts";
+import Field from "../../../components/field/Field.tsx";
+import Section from "../../../components/section/Section.tsx";
+import type {DirectionForward} from "../../../types/cargo.type.ts";
 
 interface AddCarrierFormProps {
     initialData?: CreateCarrierRequest | CarrierResponse;
@@ -46,7 +49,6 @@ const AddCarrierForm: FC<AddCarrierFormProps> = ({ initialData, submitText = "Д
 
     return (
         <div className="space-y-8">
-            {/* General Info */}
             <Section title="Загальна інформація" color="bg-blue-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <Field label="Ім'я" value={form.name} onChange={v => handleChange("name", v)} inputClass={inputClass} />
@@ -57,7 +59,6 @@ const AddCarrierForm: FC<AddCarrierFormProps> = ({ initialData, submitText = "Д
                 </div>
             </Section>
 
-            {/* Regions */}
             <Section title="Регіони" color="bg-purple-500">
                 <div className="flex flex-wrap gap-4">
                     {allRegions.map(region => (
@@ -80,7 +81,6 @@ const AddCarrierForm: FC<AddCarrierFormProps> = ({ initialData, submitText = "Д
                 </div>
             </Section>
 
-            {/* Submit buttons */}
             <div className="flex gap-2">
                 {onCancel && (
                     <button onClick={onCancel} className="w-full h-10 rounded-xl border">
@@ -97,32 +97,3 @@ const AddCarrierForm: FC<AddCarrierFormProps> = ({ initialData, submitText = "Д
 
 export default AddCarrierForm;
 
-/* ================= HELPERS ================= */
-interface SectionProps {
-    title: string;
-    color: string;
-    children: ReactNode;
-}
-const Section: FC<SectionProps> = ({ title, color, children }) => (
-    <div>
-        <div className="flex items-center gap-3 mb-3">
-            <div className={`w-1.5 h-6 rounded-full ${color}`} />
-            <h3 className="text-lg font-medium">{title}</h3>
-        </div>
-        {children}
-    </div>
-);
-
-interface FieldProps {
-    label: string;
-    value: string | number;
-    onChange: (value: string) => void;
-    inputClass: string;
-    type?: React.HTMLInputTypeAttribute;
-}
-const Field: FC<FieldProps> = ({ label, value, onChange, inputClass, type = "text" }) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium opacity-80">{label}</label>
-        <input type={type} value={value} onChange={e => onChange(e.target.value)} className={inputClass} />
-    </div>
-);

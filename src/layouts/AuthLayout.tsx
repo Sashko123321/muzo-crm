@@ -9,7 +9,6 @@ const AuthLayout = () => {
             relative overflow-hidden
         ">
             <Snowfall color="#7986CB"/> {/* Winter Theme */}
-            {/* decorative blobs */}
             <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-300/20 rounded-full blur-3xl" />
             <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl" />
 

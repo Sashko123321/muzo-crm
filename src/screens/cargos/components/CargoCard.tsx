@@ -23,7 +23,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
     return (
         <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 hover:shadow-lg hover:shadow-slate-200/50 transition-all duration-300">
 
-            {/* Header */}
             <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                     <div className="w-10 sm:w-12 aspect-square rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-orange-500/25 shrink-0">
@@ -34,7 +33,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                         <h3 className="text-sm sm:text-base font-semibold text-slate-900 truncate">
                             {cargo.description || "Без опису"}
                         </h3>
-                        {/* ID вантажу */}
                         <span className="text-xs font-mono text-slate-400 mt-0.5">ID: #{cargo.id}</span>
                         <p className="text-xs sm:text-sm text-slate-500 truncate mt-0.5">
                             {cargo.clientName ? `Клієнт: ${cargo.clientName}` : "Клієнт невідомий"}
@@ -50,7 +48,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                 </Badge>
             </div>
 
-            {/* Locations */}
             <div className="mt-4 sm:mt-5 space-y-3">
                 <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
@@ -65,7 +62,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                 </div>
             </div>
 
-            {/* Metrics */}
             <div className="mt-4 sm:mt-5 grid grid-cols-3 gap-2 sm:gap-3">
                 {cargo.weightKg && (
                     <div className="bg-slate-50 rounded-xl p-2 sm:p-3 text-center">
@@ -73,14 +69,12 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                         <p className="text-xs sm:text-sm font-semibold text-slate-900 mt-1">{cargo.weightKg} кг</p>
                     </div>
                 )}
-                {/* DirectionForward блок завжди */}
                 <div className="bg-slate-50 rounded-xl p-2 sm:p-3 text-center">
                     <Compass className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400 mx-auto" />
                     <p className="text-xs sm:text-sm font-semibold text-slate-900 mt-1">
                         {cargo.directionForward || "-"}
                     </p>
                 </div>
-                {/* Price Block */}
                 {cargo.price && (
                     <div className="bg-green-50 border border-green-200 rounded-xl p-2 sm:p-3 text-center flex flex-col items-center justify-center shadow-sm">
                         <HandCoins className="w-3 h-3 sm:w-4 sm:h-4 text-slate-400 mx-auto" />
@@ -91,7 +85,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                 )}
             </div>
 
-            {/* Available Dates */}
             <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-2 sm:gap-3">
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-2 sm:p-3 text-center">
                     <p className="text-xs sm:text-sm text-slate-500">Завантаження з</p>
@@ -102,7 +95,6 @@ export const CargoCard: FC<CargoCardProps> = ({ cargo, onViewDetails }) => {
                     <p className="text-sm font-semibold text-slate-900 mt-1">{formatDate(cargo.availableTo)}</p>
                 </div>
             </div>
-            {/* Button */}
             <Button
                 onClick={() => onViewDetails(cargo)}
                 variant="outline"

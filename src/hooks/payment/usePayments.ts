@@ -102,8 +102,6 @@ export const usePayments = () => {
         getAll,
         updateStatus,
         updatePercentage,
-
-        // totals
         getMyTotalPayments,
         getUserTotalPayments,
     };

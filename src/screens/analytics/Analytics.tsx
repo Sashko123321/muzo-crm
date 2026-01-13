@@ -1,5 +1,3 @@
-
-
 import StatCard from "../../components/dashboard/StatCard.tsx";
 import {
     ClipboardList,
@@ -20,15 +18,7 @@ import type {UserTotalPaymentResponse} from "../../types/payments.type.ts";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 
-
-
-
 const Analytics = () => {
-    // const { isOpen } = useSidebarStore();
-
-
-
-    // const totalOrders = orderStatuses.reduce((s, o) => s + o.count, 0);
     const [weeklyActivity, setWeeklyActivity] = useState<WeeklyActivityResponse[]>([]);
 
     const {
@@ -38,7 +28,7 @@ const Analytics = () => {
         getWeeklyActivity,
     } = useStatistics();
 
-    const { getMyTotalPayments } = usePayments();
+    const { getMyTotalPayments,loading,error } = usePayments();
     const [orderStats, setOrderStats] = useState<OrderCountResponse | null>(null);
     const [cargoStats, setCargoStats] = useState<CargoCountResponse | null>(null);
     const [carrierStats, setCarrierStats] = useState<CarrierCountResponse | null>(null);
@@ -88,8 +78,8 @@ const Analytics = () => {
                     </div>
 
 
-                    {/*{loading && <p className="text-sm text-gray-500">Loading…</p>}*/}
-                    {/*{error && <p className="text-sm text-red-500">{error}</p>}*/}
+                    {loading && <p className="text-sm text-gray-500">Loading…</p>}
+                    {error && <p className="text-sm text-red-500">{error}</p>}
 
                     {/* Global stats */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

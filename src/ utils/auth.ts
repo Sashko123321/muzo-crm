@@ -10,15 +10,3 @@ export const getUserRole = (): "Admin" | "User" | null => {
         return null;
     }
 };
-
-export const getUserName = () => {
-    try {
-        const raw = localStorage.getItem("profile");
-        if (!raw) return null;
-
-        const parsed = JSON.parse(raw);
-        return parsed?.firstName ?? null;
-    } catch {
-        return null;
-    }
-}

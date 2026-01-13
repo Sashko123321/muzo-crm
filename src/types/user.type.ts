@@ -13,14 +13,10 @@ export interface UserResponse {
     firstName?: string;
     lastName?: string;
     phoneNumber?: string;
-    // photoBase64?: string;
     role: RoleType;
     isActive: boolean;
 }
 
-export interface BlockUserRequest {
-    isActive: boolean; // false = заблокувати, true = розблокувати
-}
 
 export interface UserQueryParams {
     searchField?: string;

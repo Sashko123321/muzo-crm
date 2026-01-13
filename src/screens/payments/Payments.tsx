@@ -19,9 +19,7 @@ const Payments = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
     const [totalPages, setTotalPages] = useState(1);
-// Додати стан локальних відсотків
     const [localPercentages, setLocalPercentages] = useState<Record<number, number>>({});
-    // ===================== FETCH PAYMENTS =====================
     useEffect(() => {
         const fetchPayments = async () => {
             const params: PaymentQueryParams = {
@@ -44,7 +42,6 @@ const Payments = () => {
         fetchPayments();
     }, [getAll, currentPage, search]);
 
-    // ===================== FILTER + SEARCH =====================
     const filteredPayments = useMemo(() => {
         return payments.filter(p => {
             const matchPayment =
@@ -59,7 +56,6 @@ const Payments = () => {
         });
     }, [payments, paymentFilter, search]);
 
-// PAY
     const handlePay = async (paymentId: number) => {
         const confirmed = confirm("Підтвердити виплату?");
         if (!confirmed) return;
@@ -70,23 +66,14 @@ const Payments = () => {
         }
     };
 
-// CHANGE PERCENTAGE
-//     const handleChangePercentage = async (paymentId: number, value: number) => {
-//         const updated = await updatePercentage(paymentId.toString(), { percentage: value });
-//         if (updated) {
-//             setPayments(prev => prev.map(p => (p.id === updated.id ? updated : p)));
-//         }
-//     };
 
 
     return (
         <main className="p-4 w-full">
-            {/* ===================== HEADER ===================== */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold mb-4">Виплати</h1>
 
                 <div className="flex flex-col lg:flex-row justify-between gap-4">
-                    {/* Filters */}
                     <div className="flex gap-2">
                         {(["All", "Paid", "Unpaid"] as PaymentFilter[]).map(f => (
                             <FilterButton
@@ -101,7 +88,6 @@ const Payments = () => {
                         ))}
                     </div>
 
-                    {/* Search */}
                     <div className="relative w-full sm:w-72">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input
@@ -122,7 +108,6 @@ const Payments = () => {
                 </div>
             </div>
 
-            {/* ===================== CONTENT ===================== */}
             {loading && <p className="text-center text-slate-500">Завантаження...</p>}
             {error && <p className="text-red-500">{error}</p>}
 
@@ -234,7 +219,6 @@ const Payments = () => {
                 </div>
             )}
 
-            {/* ===================== PAGINATION ===================== */}
             {totalPages > 1 && (
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             )}

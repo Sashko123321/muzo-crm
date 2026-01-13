@@ -19,7 +19,6 @@ const MainLayout = ({ getProfile }: MainLayoutProps) => {
     const currentPageName =
         location.pathname.split("/muzo-crm/")[1] || "Dashboard";
 
-    // Оновлюємо профіль завжди при рендері MainLayout
     useEffect(() => {
         const loadProfile = async () => {
             const data = await getProfile();
@@ -30,7 +29,7 @@ const MainLayout = ({ getProfile }: MainLayoutProps) => {
         };
 
         loadProfile();
-    }, [getProfile]); // тут більше немає profile
+    }, [getProfile]);
     return (
         <div className="min-h-screen bg-slate-50">
             <Sidebar

@@ -1,6 +1,4 @@
-// src/types/statistics.type.ts
 
-// -------- Orders --------
 import type {OrderStatus} from "./order.type.ts";
 
 export interface OrderCountResponse {
@@ -19,18 +17,16 @@ export interface OrderShortResponse {
     id: number;
     cargosDescription: string[];
     statusOrder: string;
-    createdAt: string; // ISO
+    createdAt: string;
 }
 
 
-// -------- Cargo --------
 export interface CargoCountResponse {
     totalCountCargos: number;
     activeCount: number;
     inactiveCount: number;
 }
 
-// -------- Carrier --------
 export interface CarrierCountResponse {
     totalCountCarrier: number;
     activeCount: number;

@@ -53,14 +53,7 @@ export const UserService = {
 
     getProfile: () =>
         instance({
-            url: getProfile(), // /users/profile
-            method: "GET",
-        }),
-
-    // ---------- Get Team Employees ----------
-    getTeamEmployees: () =>
-        instance({
-            url: `/users/team-employees`, // ваш endpoint для Curator
+            url: getProfile(),
             method: "GET",
         }),
 

@@ -24,12 +24,10 @@ function App() {
         <Providers>
             <Routes>
 
-                {/* AUTH */}
                 <Route element={<AuthLayout />}>
                     <Route path={RouterEnum.LOGIN} element={<Login />} />
                 </Route>
 
-                {/* MAIN APP */}
                 <Route element={<MainLayout getProfile={getProfile} />}>
                     <Route path={RouterEnum.DASHBOARD} element={<Dashboard />} />
                     <Route element={<ProtectedRoute />}>

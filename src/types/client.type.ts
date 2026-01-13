@@ -35,7 +35,6 @@ export interface ClientListResponse {
     page: number;
     pageSize: number;
 }
-// Type guard для перевірки, чи об’єкт є дублем
 export function isDuplicateResponse(obj: unknown): obj is { duplicated: true; message: string } {
     return (
         typeof obj === "object" &&

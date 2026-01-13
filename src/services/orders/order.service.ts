@@ -9,7 +9,6 @@ import {
 import type {CreateOrderRequest, OrderQueryParams} from "../../types/order.type.ts";
 
 export const OrdersService = {
-    // ---------- Get all orders ----------
     getAll: (params?: OrderQueryParams) =>
         instance({
             url: getOrders(),
@@ -34,7 +33,7 @@ export const OrdersService = {
         instance({
             url: updateOrderStatus(id),
             method: "PATCH",
-            data: status, // бек чекає лише статус
+            data: status,
         }),
 
     delete: (id: string) =>

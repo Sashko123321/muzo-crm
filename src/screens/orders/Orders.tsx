@@ -18,7 +18,6 @@ import AddModal from "../../components/shered/AddModal.tsx";
 const Orders = () => {
     const { loading, error, getAll, updateStatus, remove} = useOrder();
     const { getOne: getCargo } = useCargo();
-    // const role = getUserRole();
     const [orders, setOrders] = useState<OrderResponse[]>([]);
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState<OrderStatus | "All">("All");
@@ -40,7 +39,6 @@ const Orders = () => {
     };
 
 
-    // ===================== FETCH =====================
     useEffect(() => {
         let isMounted = true;
         const fetchOrders = async () => {
@@ -67,7 +65,6 @@ const Orders = () => {
         return () => { isMounted = false; };
     }, [currentPage, search, statusFilter, getAll]);
 
-    // ===================== CARGO DETAILS =====================
     useEffect(() => {
         if (!selectedOrder) return;
         let mounted = true;
@@ -106,7 +103,6 @@ const Orders = () => {
     };
     return (
         <main className="p-4 w-full">
-            {/* ===================== HEADER ===================== */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold mb-4">Список Замовлень</h1>
                 <div className="flex flex-col lg:flex-row justify-between gap-4">
@@ -157,7 +153,6 @@ const Orders = () => {
                 </div>
             </div>
 
-            {/* ===================== CONTENT ===================== */}
             {loading && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                     {Array.from({ length: pageSize }).map((_, i) => (
@@ -209,7 +204,6 @@ const Orders = () => {
             )}
 
 
-            {/* ===================== MODAL ===================== */}
             <CardModal
                 open={!!selectedOrder}
                 onClose={() => {
@@ -229,7 +223,6 @@ const Orders = () => {
 
                     const success = await remove(selectedOrder.id.toString());
                     if (success) {
-                        // Оновлюємо список вантажів
                         setOrders((prev) => prev.filter((c) => c.id !== selectedOrder.id));
                         setSelectedOrder(null);
                         setIsEdit(false);
@@ -240,7 +233,6 @@ const Orders = () => {
                     <div className="space-y-6">
 
 
-                        {/* Carrier */}
                         <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white">
                                 <Truck className="w-6 h-6" />
@@ -256,7 +248,6 @@ const Orders = () => {
                             </div>
                         </div>
 
-                        {/* Status + Percentage */}
                         <div className="flex flex-col space-y-2">
                             <p className="text-sm font-semibold text-slate-600 uppercase">Статус</p>
                             <select
@@ -277,11 +268,9 @@ const Orders = () => {
                                     </option>
                                 ))}
                             </select>
-                            {/*<p className="text-xs text-slate-500 mt-1">Комісія: {selectedOrder.percentage}%</p>*/}
                         </div>
 
 
-                        {/* Cargos */}
                         <div className="space-y-2">
                             <p className="text-sm font-semibold text-slate-600 uppercase">Вантаж ({cargoDetails.length})</p>
                             {cargoDetails.length ? (
@@ -308,12 +297,9 @@ const Orders = () => {
                                                 >
                                                     {c.isActive ? "Active" : "Inactive"}
                                                 </Badge>
-                                                {/* Payment Status */}
 
 
                                             </div>
-
-                                            {/* Route */}
                                             <div className="flex items-center gap-3 text-xs text-slate-600">
                                                 <MapPin className="w-4 h-4 text-emerald-500" />
                                                 <span>{c.fromLocation || "N/A"}</span>
@@ -322,7 +308,6 @@ const Orders = () => {
                                                 <MapPin className="w-4 h-4 text-red-500" />
                                             </div>
 
-                                            {/* Metrics */}
                                             <div className="grid grid-cols-4 gap-2">
                                                 {c.weightKg && (
                                                     <div className="bg-slate-50 rounded-xl p-2 text-center">
@@ -340,7 +325,6 @@ const Orders = () => {
                                                         <p className="text-sm font-semibold mt-1">{c.price} {c.currency}</p>
                                                     </div>
                                                 )}
-                                                {/* Commission */}
                                                 {c.price && selectedOrder && (
                                                     <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-2 text-center flex flex-col items-center justify-center shadow-sm">
                                                         <p className="text-xs text-yellow-600">Комісія</p>
@@ -358,7 +342,6 @@ const Orders = () => {
                             )}
                         </div>
 
-                        {/* Total Commission */}
                         {cargoDetails.length > 0 && selectedOrder && (
                             <div className="pt-4 border-t border-slate-200 flex flex-col gap-2">
                                 <p className="text-sm font-semibold text-slate-600">Комісія від {selectedOrder.percentage}%:</p>
@@ -381,8 +364,6 @@ const Orders = () => {
                     </div>
                 )}
             </CardModal>
-
-
         </main>
     );
 };

@@ -1,5 +1,3 @@
-
-
 export const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 export const API_URL = `${SERVER_URL}/api`;
 
@@ -7,7 +5,6 @@ export const API_URL = `${SERVER_URL}/api`;
 export const login = () => `/users/login`;
 export const register = () => `/users/register`;
 export const postAccessTokenUrl = () => `/users/refresh`;
-// export const logout = () => `/users/logout`;
 export const getProfile = () => `/users/profile`;
 
 // ====================== CARGO ======================
@@ -21,7 +18,6 @@ export const toggleCargoActivity = (id: string) => `/cargos/${id}/toggle-activit
 // ====================== USERS ======================
 export const getUsers = () => `/users`;
 export const getUser = (id: string) => `/users/${id}`;
-// export const createUser = () => `/users`;
 export const updateUser = (id: string) => `/users/${id}`;
 export const deleteUser = (id: string) => `/users/${id}`;
 export const toggleUserActivity = (id: string) => `/users/${id}/toggle-activity`;
@@ -69,4 +65,3 @@ export const getClient = (id: string) => `/clients/${id}`;
 export const createClient = () => `/clients`;
 export const updateClient = (id: string) => `/clients/${id}`;
 export const deleteClient = (id: string) => `/clients/${id}`;
-export const toggleClientStatus = (id: string) => `/clients/${id}/toggle-status`;

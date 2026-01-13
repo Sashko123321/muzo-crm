@@ -28,7 +28,6 @@ const Carriers = () => {
 
     const role = getUserRole();
 
-    // ===================== FETCH =====================
     useEffect(() => {
         let mounted = true;
 
@@ -45,7 +44,6 @@ const Carriers = () => {
 
             if (data?.data) {
                 setCarriers(data.data);
-                // Розрахунок totalPages через totalCount з API
                 const pages = Math.ceil((data.totalCount || 1) / pageSize) || 1;
                 setTotalPages(pages);
             } else {
@@ -76,7 +74,6 @@ const Carriers = () => {
 
     return (
         <main className="p-4 w-full">
-            {/* HEADER */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold mb-4">Список Перевізників</h1>
                 <div className="flex flex-col lg:flex-row gap-4 justify-between">
@@ -106,7 +103,6 @@ const Carriers = () => {
                 </div>
             </div>
 
-            {/* CONTENT */}
             {loading && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                     {Array.from({ length: pageSize }).map((_, i) => <CarrierCardSkeleton key={i} />)}
@@ -132,7 +128,6 @@ const Carriers = () => {
                 />
             )}
 
-            {/* ADD MODAL */}
             {showAddModal && (
                 <AddModal open={showAddModal} onClose={setShowAddModal} title="Додати Перевізника" description="Створіть нового перевізника">
                     <AddCarrierForm
@@ -149,7 +144,6 @@ const Carriers = () => {
                 </AddModal>
             )}
 
-            {/* VIEW / EDIT MODAL */}
             <CardModal
                 open={!!selectedCarrier}
                 onClose={() => { setSelectedCarrier(null); setIsEdit(false); }}
@@ -177,7 +171,6 @@ const Carriers = () => {
                         onSubmit={async (data: CreateCarrierRequest) => {
                             if (!selectedCarrier) return;
                             await update(selectedCarrier.id.toString(), data);
-                            // Оновлюємо список
                             const updatedList = await getAll({ limit: pageSize, offset: 0 });
                             if (updatedList?.data) setCarriers(updatedList.data);
                             setIsEdit(false);
@@ -187,7 +180,6 @@ const Carriers = () => {
                 ) : (
                     selectedCarrier && (
                         <div className="space-y-6">
-                            {/* CONTACTS */}
                             <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg">
                                     <Truck className="w-6 h-6" />
@@ -198,7 +190,6 @@ const Carriers = () => {
                                 </div>
                             </div>
 
-                            {/* CONTACT DETAILS */}
                             <div className="space-y-4">
                                 <h4 className="font-medium text-slate-900">Контакти</h4>
                                 <div className="flex gap-3">
@@ -238,7 +229,6 @@ const Carriers = () => {
                                 </div>
                             )}
 
-                            {/* DETAILS */}
                             <div className="pt-4 border-t border-gray-200">
                                 <h4 className="font-medium mb-4">Деталі</h4>
                                 <div className="grid grid-cols-3 gap-4">

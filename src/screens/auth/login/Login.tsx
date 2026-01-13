@@ -69,17 +69,16 @@ const Login = () => {
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-center text-slate-900">
-                Welcome back
+                Ласкаво просимо
             </h1>
             <p className="text-sm text-slate-500 text-center mt-2">
-                Sign in to your account
+                Увійдіть у свій обліковий запис
             </p>
 
             <form onSubmit={handleLogin} className="space-y-4 mt-8">
-                {/* Phone */}
                 <div>
                     <label className="text-sm font-medium text-slate-600">
-                        Phone number
+                        Номер телефону або Логін
                     </label>
                     <input
                         type="tel"
@@ -102,7 +101,7 @@ const Login = () => {
                 {/* Password */}
                 <div>
                     <label className="text-sm font-medium text-slate-600">
-                        Password
+                        Пароль
                     </label>
                     <input
                         type="password"
@@ -141,7 +140,7 @@ const Login = () => {
                         disabled:cursor-not-allowed
                     "
                 >
-                    {isLoading ? "Signing in..." : "Login"}
+                    {isLoading ? "Вхід..." : "Логін"}
                 </button>
             </form>
         </div>

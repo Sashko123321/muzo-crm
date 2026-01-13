@@ -37,8 +37,6 @@ export const PaymentService = {
             data,
         }),
 
-    // -------- TOTAL PAYMENTS --------
-
     getMyTotalPayments: (status?: "Paid" | "Unpaid") =>
         instance<UserTotalPaymentResponse>({
             url: getMyTotalPayments(),

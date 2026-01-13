@@ -3,7 +3,6 @@ import type { FC } from "react";
 import type { OrderResponse } from "../../../types/order.type";
 import { Badge } from "../../../components/badge/Badge.tsx";
 import { Button } from "../../../components/button/Button.tsx";
-// import OrderDetailsModal from "../../../components/modals/OrderDetailsModal.tsx";
 import { useState, useEffect } from "react";
 import { useCargo } from "../../../hooks/cargo/useCargo";
 import type { CargoResponse } from "../../../types/cargo.type.ts";
@@ -31,7 +30,6 @@ const statusLabels: Record<OrderResponse["status"], string> = {
 
 
 const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
-    // const [showModal, setShowModal] = useState(false);
     const { getOne: getCargo } = useCargo();
     const [cargoDetails, setCargoDetails] = useState<CargoResponse[]>([]);
 
@@ -47,14 +45,12 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
         fetchCargoDetails();
     }, [order.cargoIds, getCargo]);
 
-    // const cargoText = cargoDetails.map(c => c.description).join(", ");
-    // const shortCargoText = cargoText.length > 60 ? cargoText.slice(0, 60) + "..." : cargoText || "-";
+
 
     return (
         <>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 p-4 sm:p-6 flex flex-col gap-4">
 
-                {/* HEADER */}
                 <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                         <div className="w-10 sm:w-12 aspect-square rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shrink-0">
@@ -85,7 +81,6 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
 
                 </div>
 
-                {/* CARGO INFO */}
                 <div className="mt-2 flex items-center gap-2 text-sm text-slate-600 flex-wrap">
                     <Package className="w-4 h-4 text-slate-400 shrink-0" />
                     {cargoDetails.length > 0 ? (
@@ -97,9 +92,7 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
                     )}
                 </div>
 
-                {/* FINANCE / METRICS */}
                 <div className="mt-2 flex flex-wrap gap-2 text-sm">
-                    {/* Суми по валютам */}
                     {order.total && Object.keys(order.total).length > 0 && Object.entries(order.total).map(([currency, amount]) => (
                         <Badge
                             key={currency}
@@ -110,7 +103,6 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
                         </Badge>
                     ))}
 
-                    {/* Комісія по відсотку для кожної валюти */}
                     {order.total && order.percentage && Object.keys(order.total).length > 0 && Object.entries(order.total).map(([currency, amount]) => (
                         <Badge
                             key={`commission-${currency}`}
@@ -122,7 +114,6 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
                         </Badge>
                     ))}
 
-                    {/* Тип комісії */}
                     {order.commissionFor && (
                         <Badge className="bg-emerald-50 text-emerald-600 border-emerald-100" variant="default">
                             {order.commissionFor === "Carrier" ? "Комісія перевізника" : "Комісія вантажу"}
@@ -131,7 +122,6 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
                 </div>
 
 
-                {/* BUTTON */}
                 <Button
                     onClick={() => onViewDetails?.(order)}
                     variant="outline"
@@ -143,7 +133,6 @@ const OrderCard: FC<OrderCardProps> = ({ order, onViewDetails }) => {
 
             </div>
 
-            {/*{showModal && <OrderDetailsModal order={order} onClose={() => setShowModal(false)} />}*/}
         </>
     );
 };

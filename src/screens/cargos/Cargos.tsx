@@ -4,7 +4,6 @@
     import Pagination from "../../components/Pagination";
     import CargoCardSkeleton from "./components/CargoCardSkeleton";
     import CardModal from "../../components/shered/CardModal";
-    // import AddCargoModal from "../../components/modals/AddCargoModal";
 
     import { useCargo } from "../../hooks/cargo/useCargo";
     import type { CargoResponse } from "../../types/cargo.type";
@@ -31,7 +30,6 @@
 
         const role = getUserRole();
 
-        // ===================== FETCH =====================
         useEffect(() => {
             let mounted = true;
 
@@ -48,7 +46,6 @@
                 if (data?.data) {
                     setCargos(data.data);
 
-                    // Розрахунок totalPages через totalCount з API
                     const pages = Math.ceil((data.totalCount || 1) / pageSize) || 1;
                     setTotalPages(pages);
                 } else {
@@ -67,17 +64,14 @@
             const updated = await toggleActivity(selectedCargo.id.toString(), isActive);
             if (!updated) return;
 
-            // оновлюємо модалку
             setSelectedCargo(updated);
 
-            // оновлюємо список
             setCargos((prev) =>
                 prev.map((c) => (c.id === updated.id ? updated : c))
             );
         };
 
 
-        // ===================== HELPERS =====================
         const statusLabels = {
             active: "Активний",
             inactive: "Неактивний",
@@ -108,7 +102,6 @@
 
         return (
             <main className="p-4 w-full">
-                {/* ===================== HEADER ===================== */}
                 <div className="mb-6">
                     <h1 className="text-2xl font-bold mb-4">Список Вантажів</h1>
 
@@ -179,7 +172,6 @@
                     </div>
                 </div>
 
-                {/* ===================== CONTENT ===================== */}
                 {loading && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                         {Array.from({ length: pageSize }).map((_, i) => (
@@ -238,7 +230,6 @@
 
                 )}
 
-                {/* ===================== MODAL ===================== */}
                 <CardModal
                     open={!!selectedCargo}
                     onClose={() => {
@@ -313,7 +304,6 @@
                                     </div>
                                 </div>
 
-                                {/* Route */}
                                 <div className="space-y-4">
                                     <h4 className="font-medium text-slate-900">Маршрут</h4>
 
@@ -357,12 +347,12 @@
                                                 handleActivityChange(e.target.value as "active" | "inactive")
                                             }
                                             className="
-                    w-full h-9 rounded-xl px-3
-                    border border-slate-300
-                    text-sm
-                    focus:outline-none
-                    focus:ring-2 focus:ring-indigo-500
-                "
+                                                w-full h-9 rounded-xl px-3
+                                                border border-slate-300
+                                                text-sm
+                                                focus:outline-none
+                                                focus:ring-2 focus:ring-indigo-500
+                                            "
                                             disabled={loading}
                                         >
                                             <option value="active">Активний</option>

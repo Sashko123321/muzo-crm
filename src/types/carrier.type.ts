@@ -1,6 +1,6 @@
+import type {DirectionForward} from "./cargo.type.ts";
 
-export type DirectionForward = 'Ukraine' | 'Europe';
-    export interface CreateCarrierRequest {
+export interface CreateCarrierRequest {
         name: string;
         phoneNumber: string;
         telegram?: string;

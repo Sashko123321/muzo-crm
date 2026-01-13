@@ -29,7 +29,6 @@ const Clients = () => {
     const [selectedClient, setSelectedClient] = useState<ClientResponse | null>(null);
     const [isEdit, setIsEdit] = useState(false);
 
-    // ===================== FETCH =====================
     useEffect(() => {
         let mounted = true;
 
@@ -59,7 +58,6 @@ const Clients = () => {
         };
     }, [currentPage, search, statusFilter, getAll]);
 
-    // ===================== LABELS =====================
     const statusLabels = {
         Thinking: "Думають",
         Supported: "Співпрацюємо",
@@ -74,7 +72,6 @@ const Clients = () => {
 
     return (
         <main className="p-4 w-full">
-            {/* ===================== HEADER ===================== */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold mb-4">Список Клієнтів</h1>
 
@@ -115,7 +112,6 @@ const Clients = () => {
                         />
                     </div>
 
-                    {/* Search + Add */}
                     <div className="flex flex-wrap gap-2 items-center">
                         <div className="relative w-full sm:w-72">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -153,7 +149,6 @@ const Clients = () => {
                 </div>
             </div>
 
-            {/* ===================== CONTENT ===================== */}
             {loading && (
                 <p className="text-center text-slate-500">Завантаження...</p>
             )}
@@ -184,7 +179,6 @@ const Clients = () => {
                 />
             )}
 
-            {/* ===================== ADD MODAL ===================== */}
             {showAddModal && (
                 <AddModal
                     open={showAddModal}
@@ -211,7 +205,6 @@ const Clients = () => {
             )}
 
 
-            {/* ===================== DETAILS MODAL ===================== */}
             <CardModal
                 open={!!selectedClient}
                 onClose={() => {
@@ -226,9 +219,7 @@ const Clients = () => {
                 isEdit={isEdit}
                 onToggleEdit={() => setIsEdit((p) => !p)}
             >
-                {/* ===== SAFE GUARD ===== */}
                 {!selectedClient ? null : isEdit ? (
-                    /* ===================== EDIT MODE ===================== */
                     <AddClientForm
                         initialData={selectedClient}
                         submitText="Зберегти зміни"
@@ -252,9 +243,7 @@ const Clients = () => {
                         }}
                     />
                 ) : (
-                    /* ===================== VIEW MODE ===================== */
                     <div className="space-y-5">
-                        {/* Основна інформація */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="bg-slate-50 rounded-xl p-4">
                                 <p className="text-xs text-slate-500 mb-1">Імʼя клієнта</p>
@@ -274,7 +263,6 @@ const Clients = () => {
                             </div>
                         </div>
 
-                        {/* Контакти */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="bg-slate-50 rounded-xl p-4">
                                 <p className="text-xs text-slate-500 mb-1">Email</p>
@@ -295,7 +283,6 @@ const Clients = () => {
                             </div>
                         </div>
 
-                        {/* Статистика */}
                         <div className="grid grid-cols-2 gap-4">
                             <div className="rounded-xl p-4 border border-slate-200 text-center">
                                 <p className="text-xl font-bold text-slate-900">
@@ -312,7 +299,6 @@ const Clients = () => {
                             </div>
                         </div>
 
-                        {/* Опис */}
                         <div className="bg-slate-50 rounded-xl p-4">
                             <p className="text-xs text-slate-500 mb-1">Опис</p>
                             <p className="text-sm text-slate-900 whitespace-pre-line">

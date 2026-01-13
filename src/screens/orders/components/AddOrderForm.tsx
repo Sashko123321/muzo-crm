@@ -5,6 +5,8 @@ import type { CargoResponse } from "../../../types/cargo.type";
 import { useOrder } from "../../../hooks/order/useOrder";
 import { useCarrier } from "../../../hooks/carrier/useCarrier";
 import { useCargo } from "../../../hooks/cargo/useCargo";
+import Field from "../../../components/field/Field.tsx";
+import Section from "../../../components/section/Section.tsx";
 
 interface AddOrderFormProps {
     onSuccess: (newOrder: OrderResponse) => void;
@@ -25,7 +27,6 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
     const [carriers, setCarriers] = useState<CarrierResponse[]>([]);
     const [cargos, setCargos] = useState<CargoResponse[]>([]);
 
-    // Завантаження активних перевізників і вантажів
     useEffect(() => {
         const loadData = async () => {
             const carrierData = await getCarriers();
@@ -59,7 +60,6 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
 
     return (
         <div className="space-y-6">
-            {/* ================= GENERAL INFO ================= */}
             <Section title="General Info" color="bg-blue-500">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field
@@ -84,7 +84,6 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
                 </div>
             </Section>
 
-            {/* ================= CARRIER ================= */}
             <Section title="Carrier" color="bg-green-500">
                 <select
                     className={inputClass}
@@ -98,7 +97,6 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
                 </select>
             </Section>
 
-            {/* ================= CARGOS ================= */}
             <Section title="Cargos" color="bg-purple-500">
                 <div className="flex flex-col gap-2 max-h-48 overflow-y-auto">
                     {cargos.map(cargo => (
@@ -120,7 +118,6 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
                 </div>
             </Section>
 
-            {/* ================= SUBMIT ================= */}
             <button
                 onClick={handleSubmit}
                 disabled={loading}
@@ -132,39 +129,7 @@ const AddOrderForm: FC<AddOrderFormProps> = ({ onSuccess }) => {
     );
 };
 
-/* ===================== HELPERS ===================== */
-interface SectionProps {
-    title: string;
-    color: string;
-    children: React.ReactNode;
-}
-const Section: FC<SectionProps> = ({ title, color, children }) => (
-    <div>
-        <div className="flex items-center gap-2 mb-3">
-            <div className={`w-1.5 h-6 rounded-full ${color}`} />
-            <h3 className="text-lg font-medium">{title}</h3>
-        </div>
-        {children}
-    </div>
-);
 
-interface FieldProps {
-    label: string;
-    value: string | number;
-    onChange: (value: string) => void;
-    inputClass: string;
-    type?: React.HTMLInputTypeAttribute;
-}
-const Field: FC<FieldProps> = ({ label, value, onChange, inputClass, type = "text" }) => (
-    <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium opacity-80">{label}</label>
-        <input
-            type={type}
-            value={value}
-            onChange={e => onChange(e.target.value)}
-            className={inputClass}
-        />
-    </div>
-);
+
 
 export default AddOrderForm;
